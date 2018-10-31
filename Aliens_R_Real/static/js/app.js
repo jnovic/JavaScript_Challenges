@@ -6,13 +6,25 @@ var submit = d3.select("#filter-btn");
 var table = d3.select("#ufo-table");
 var tablebody = table.select("tbody");
 
-console.log(Object.entries(tableData));
-tableData.forEach((user) => {
-    var tablerow = tablebody.append("tr");
-    Object.entries(user).forEach(([key,value]) => {
-        var tabledivision = tablerow.append("td");
-    tabledivision.text(value);})  
-});
+
+
+
+function filterUFO(){
+    d3.event.preventDefault();
+    var inputElement =d3.select("#datetime");
+    var inputValue = inputElement.property("value");
+    var filteredData = tableData.filter(ufo => ufo.datetime === inputValue);
+    filteredData.forEach((item) => {
+        var tablerow = tablebody.append("tr");
+        Object.entries(item).forEach(([key,value]) => {
+            var tabledivision = tablerow.append("td");
+        tabledivision.text(value);})  
+    });
+};
+
+submit.on("click", filterUFO);
+
+
 
 
 

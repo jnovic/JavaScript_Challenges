@@ -1,6 +1,6 @@
 function buildMetadata(sample) {
-
-  // @TODO: Complete the following function that builds the metadata panel
+ url = "/metadata/" + sample
+ d3.json(url).then(function(response){
 
   // Use `d3.json` to fetch the metadata for a sample
     // Use d3 to select the panel with id of `#sample-metadata`
@@ -10,11 +10,11 @@ function buildMetadata(sample) {
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
-    Object.entries(sample).forEach(([key,value]) =>{
+    Object.entries(response).forEach(([key,value]) =>{
       var bellybutton = belly.append("div");
-      bellybutton.text(key + ":" + value);
+      bellybutton.text(key +":" + value);
     })
-
+  })
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
 };
@@ -43,18 +43,31 @@ console.log(test);
   var data = [trace1];
 
   Plotly.newPlot("pie", data);
+
+  var trace2={
+  type: "scatter",
+  x: response["otu_ids"],
+  y: response["sample_values"],
+  marker: { size: response["sample_values"],
+  color: response["otu_ids"] },
+  text: response["otu_labels"]
+}
+
+var data2 = [trace2];
+
+Plotly.newPlot("bubble", data2);
+
+
+
 });
     // @TODO: Build a Bubble Chart using the sample data
-d3.json(url).then(function(response){
 
-}
-  
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
  
-  
+} 
 
  
 
@@ -88,7 +101,7 @@ function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
-}
+};
 
 // Initialize the dashboard
 init();

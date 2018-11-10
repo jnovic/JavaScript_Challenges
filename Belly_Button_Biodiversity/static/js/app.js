@@ -45,19 +45,26 @@ console.log(test);
   Plotly.newPlot("pie", data);
 
   var trace2={
-  type: "scatter",
+  mode:"markers",
+  type:"bubble",
   x: response["otu_ids"],
   y: response["sample_values"],
   marker: { size: response["sample_values"],
   color: response["otu_ids"] },
   text: response["otu_labels"]
-}
+};
+
+var bubbleLayout ={
+margin: {t:0},
+hovermode: "closest",
+xaxis: {
+  title: "OTU ID"}
+
+};
 
 var data2 = [trace2];
 
-Plotly.newPlot("bubble", data2);
-
-
+Plotly.newPlot("bubble", data2, bubbleLayout);
 
 });
     // @TODO: Build a Bubble Chart using the sample data

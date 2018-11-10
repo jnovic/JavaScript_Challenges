@@ -17,36 +17,52 @@ function buildMetadata(sample) {
 
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
-}
+};
 
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row[index]
+  })};
 
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
-url = /metadata/<sample>
-d3.json(url).then(buildCharts(sample_metadata));
+url = "/samples/" + sample
+
+d3.json(url).then(function(response){
+  console.log(response);
+var test = response["sample_values"];
+var maybe = response["otu_ids"];
+console.log(test);
+  var trace1 ={
+    type: "pie",
+    text: response["otu_labels"].slice(0,11),
+    values: test.slice(0,11),
+    labels: maybe.slice(0,11)
+  }
+  var data = [trace1];
+
+  Plotly.newPlot("pie", data);
+});
     // @TODO: Build a Bubble Chart using the sample data
+d3.json(url).then(function(response){
+
+}
+  
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
-  var hovertext = sample_metadata.otu_ids.slice(0, 11);
-  var sample_values = sample_metatadata.sample_values.slice(0,11);
-  var labels = sample_metadata.otu_labels.slice(0,11);
-  var trace1 = {
-    labels:labels,
-   values:sample_values ,
-   hovertext: hovertext,
-   type: 'pie'
- };
+ 
+  
 
- var data = [trace1];
+ 
 
 
- Plotly.newPlot("pie", data, );
+ 
 
     
-}
+
 
 function init() {
   // Grab a reference to the dropdown select element

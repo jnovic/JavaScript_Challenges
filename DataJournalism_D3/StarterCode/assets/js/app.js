@@ -72,16 +72,16 @@ console.log(healthData);
 
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - chartMargin.left + 40)
+      .attr("y", 0 - chartMargin.left)
       .attr("x", 0 - (chartHeight / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("% x");
+      .text("% healthcare coverage");
 
     chartGroup.append("text")
       .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top + 30})`)
       .attr("class", "axisText")
-      .text("%y");
+      .text("% poverty");
 
       if (error) return console.warn(error);
   
